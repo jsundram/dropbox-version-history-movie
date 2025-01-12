@@ -3,8 +3,6 @@
 This repository uses dropbox as a source of file history, with the aim of showing how a file has changed over the course of time.
 It's particularly interesting for data visualizations or designed assets.
 
-It currently only supports pdf files, but other file types would be easy to add.
-
 ## Getting snapshots of the file's version history
 ### `get_versions.py`
 If you have fewer than 100 versions of a file, and your file is a .pdf or a .png, you can use `get_versions.py`.
@@ -67,13 +65,3 @@ Options:
                                 will play back at.
   --help                        Show this message and exit.
 ```
-
-## TODO: 
-- [x] refactor out dropbox download part from make_movie.py
-- [x] generalize get_versions.py to work with files other than .pdf? (e.g. png)
-- [x] Change api of make_movie.py to take a json file and a folder
-- [x] update console script to get a more full date/time.
-- [x] add timer to console script to show how long it takes to run 
-- [x] debug console script to make sure it gets everything
-- [x] update documentation for console_script + dl.py workflow
-- [] update console script to remove a lot of the log spew.
