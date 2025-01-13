@@ -3,7 +3,7 @@ import json
 import os
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont, ImageOps
-from moviepy import ColorClip, ImageSequenceClip, ImageClip, concatenate_videoclips
+from moviepy import ImageSequenceClip, ImageClip, concatenate_videoclips
 
 
 def format_timestamp(timestamp):
@@ -76,10 +76,16 @@ def overlay_timestamp(image, font, timestamp, padding):
 
 def create_movie(frames, output_file, fps):
     clip = ImageSequenceClip(frames, fps=fps)
+    fast_backwards_clip = ImageSequenceClip(frames[::-1], fps=60)
+    last_frame_preview = ImageClip(frames[-1], duration=2)
     last_frame = ImageClip(frames[-1], duration=5)
-    fade_clip = ColorClip(size=last_frame.size, duration=2)
-    final_clip = concatenate_videoclips([clip, last_frame, fade_clip])
-    final_clip.write_videofile(output_file, fps=fps, codec="libx264")
+    final_clip = concatenate_videoclips([
+        last_frame_preview,
+        fast_backwards_clip,
+        clip,
+        last_frame,
+    ])
+    final_clip.write_videofile(output_file, fps=60, codec="libx264")
 
 
 @click.command()
